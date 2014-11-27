@@ -25,5 +25,5 @@ class TestRequest(unittest.TestCase):
         request = Request('A', '1', 'test', foo='bar', bar='foo')
         request.version = 0.1
         success, id = request.do_request()
-        self.assetTrue(success)
+        self.assertTrue(success)
         self.assertEqual(100, id)
