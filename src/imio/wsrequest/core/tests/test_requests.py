@@ -24,5 +24,6 @@ class TestRequest(unittest.TestCase):
         requests.post = Mock(return_value=self.fake_response)
         request = Request('A', '1', 'test', foo='bar', bar='foo')
         request.version = 0.1
-        id = request.do_request()
+        success, id = request.do_request()
+        self.assetTrue(success)
         self.assertEqual(100, id)

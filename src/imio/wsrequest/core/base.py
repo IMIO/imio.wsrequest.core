@@ -24,7 +24,7 @@ class WebserviceRequest(object):
         if response.status_code != 200:
             raise RequestException('HTTP Error: %s' % response.status_code)
         response = response.json()
-        if response.get('success') == False:
+        if response.get('error', None):
             raise RequestException('WS Error: %s' % response.get('message'))
         return self.get_result(response)
 

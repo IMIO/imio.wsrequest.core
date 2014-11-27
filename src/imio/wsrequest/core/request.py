@@ -13,7 +13,7 @@ class Request(WebserviceRequest):
         self.files = []
 
     def get_result(self, response):
-        return response.get('request_id')
+        return response.get('success'), response.get('request_id')
 
     @property
     def query_dict(self):

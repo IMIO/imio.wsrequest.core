@@ -9,7 +9,7 @@ class Response(WebserviceRequest):
         self.request_id = request_id
 
     def get_result(self, response):
-        return response.get('response')
+        return response.get('success'), response.get('response', {})
 
     @property
     def query_dict(self):
