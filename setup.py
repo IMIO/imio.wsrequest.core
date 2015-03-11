@@ -39,9 +39,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        'setuptools',
         'Plone',
         'requests',
+        'setuptools',
     ],
     extras_require={
         'test': [
