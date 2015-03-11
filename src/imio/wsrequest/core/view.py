@@ -9,31 +9,43 @@ from imio.wsrequest.core.response import Response
 
 
 class WSBaseView(BrowserView):
+    """Base class for requests and responses queries"""
 
-    _render_values = {
+    # Mandatory values returned by the webservice
+    # format : {key: default_value}
+    _default_json_values = {
         'success': False,
         'error': None,
     }
-    render_extra_values = {}
+    # Dictionary with extra values returned by the webservice
+    # format : {key: default_value}
+    json_extra_values = {}
+    # List of parameters required by the webservice
     request_keys = ()
+    # Dictionary of optionals parameters
+    # format : {key: value}
     request_kwargs = {}
 
     def render(self):
+        """Return a JSON with the desired values from the webservice result"""
         self.request.response.setHeader('Content-Type', 'application/json')
-        return json.dumps(self.render_values)
+        return json.dumps(self._json_values)
 
     @property
     def request_args(self):
+        """Return a list with the parameters required by the webservice"""
         return [getattr(self, k) for k in self.request_keys]
 
     @property
-    def render_values(self):
-        params_list = self._render_values.keys() + self.render_extra_values.keys()
-        return {k: getattr(self, k) for k in params_list}
+    def _json_values(self):
+        """Return a dictionary with the values for JSON render"""
+        keys = self._default_json_values.keys() + self.json_extra_values.keys()
+        return {k: getattr(self, k) for k in keys}
 
     def _set_default_values(self, obj):
-        values = self._render_values.items()
-        values.extend(self.render_extra_values.items())
+        """Set the default values"""
+        values = self._default_json_values.items()
+        values.extend(self.json_extra_values.items())
         for k, v in values:
             setattr(self, k, v)
         obj.webservice = self.webservice
@@ -46,8 +58,13 @@ class WSBaseView(BrowserView):
         self.execute()
         return self.render()
 
+    def execute(self):
+        """Execute the request to the webservice and return the result"""
+        raise NotImplementedError
+
 
 class WSRequestBaseView(WSBaseView):
+    """Base class for requests queries"""
 
     webservice = 'test_request'
     version = 0.1
@@ -71,6 +88,7 @@ class WSRequestBaseView(WSBaseView):
 
 
 class WSResponseBaseView(WSBaseView):
+    """Base class for responses queries"""
 
     webservice = 'test_response'
     version = 0.1
