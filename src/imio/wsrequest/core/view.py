@@ -74,6 +74,7 @@ class WSRequestBaseView(WSBaseView):
         'plone_id',
         'application_id',
         'request_type',
+        'type_version',
     )
 
     @property
