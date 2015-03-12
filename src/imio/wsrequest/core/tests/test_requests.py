@@ -22,7 +22,7 @@ class TestRequest(unittest.TestCase):
 
     def test_do_request(self):
         requests.post = Mock(return_value=self.fake_response)
-        request = Request('A', '1', 'test', foo='bar', bar='foo')
+        request = Request('A', '1', 'test', '1.0', foo='bar', bar='foo')
         request.version = 0.1
         success, id = request.do_request()
         self.assertTrue(success)
