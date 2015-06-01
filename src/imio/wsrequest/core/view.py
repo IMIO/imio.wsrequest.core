@@ -66,7 +66,7 @@ class WSBaseView(BrowserView):
 class WSRequestBaseView(WSBaseView):
     """Base class for requests queries"""
 
-    webservice = 'test_request'
+    webservice = 'wsrequest'
     version = 0.1
     cls = Request
 
@@ -91,7 +91,7 @@ class WSRequestBaseView(WSBaseView):
 class WSResponseBaseView(WSBaseView):
     """Base class for responses queries"""
 
-    webservice = 'test_response'
+    webservice = 'wsresponse'
     version = 0.1
     cls = Response
 
