@@ -7,6 +7,20 @@
 
   <include package="plone.app.z3cform" />
 
+  <browser:page
+    for="*"
+    name="ws_request_config"
+    class=".view.WSRequestConfigView"
+    permission="cmf.ManagePortal"
+    />
+
+  <browser:page
+    for="*"
+    name="ws_response_config"
+    class=".view.WSResponseConfigView"
+    permission="cmf.ManagePortal"
+    />
+
   <browser:viewlet
     name="ws-config-viewlet"
     manager="plone.app.layout.viewlets.interfaces.IAboveContent"
