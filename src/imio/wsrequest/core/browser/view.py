@@ -11,12 +11,7 @@ from imio.wsrequest.core import WSRequestBaseView
 from imio.wsrequest.core import WSResponseBaseView
 
 
-class WSRequestConfigView(WSRequestBaseView):
-    annotation_key = 'WS_CONFIG'
-    request_type = 'CONFIG'
-    json_extra_values = {
-        'id': None,
-    }
+class WSRequestConfigBase(object):
 
     @property
     def referer(self):
@@ -29,6 +24,14 @@ class WSRequestConfigView(WSRequestBaseView):
     def registry_config(self):
         registry = queryUtility(IRegistry)
         return registry.forInterface(self.referer.form.schema, check=False)
+
+
+class WSRequestConfigView(WSRequestBaseView, WSRequestConfigBase):
+    annotation_key = 'WS_CONFIG'
+    request_type = 'CONFIG'
+    json_extra_values = {
+        'id': None,
+    }
 
     @property
     def client_id(self):
@@ -51,7 +54,7 @@ class WSRequestConfigView(WSRequestBaseView):
         set_annotation(self.context, self.annotation_key, values, update=True)
 
 
-class WSResponseConfigView(WSResponseBaseView):
+class WSResponseConfigView(WSResponseBaseView, WSRequestConfigBase):
     annotation_key = 'WS_CONFIG'
     json_extra_values = {
         'response': None,
@@ -59,6 +62,7 @@ class WSResponseConfigView(WSResponseBaseView):
 
     def store_values(self):
         values = {'last_sync_date': datetime.now()}
+        self.registry_config.ws_config = self.response.get('config')
         set_annotation(self.context, self.annotation_key, values)
 
 

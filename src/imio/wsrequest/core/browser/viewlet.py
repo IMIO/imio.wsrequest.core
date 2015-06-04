@@ -62,8 +62,8 @@ class WSConfigViewlet(WSViewlet):
         return True
 
     @property
-    def last_update_date(self):
-        date = self.annotation.get('date')
+    def last_sync_date(self):
+        date = self.annotation.get('last_sync_date')
         return date and date.strftime('%d/%m/%Y %H:%M') or ''
 
     @property
