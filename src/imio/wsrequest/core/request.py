@@ -23,9 +23,9 @@ class Request(WebserviceRequest):
 
     @property
     def query_dict(self):
-        return {'client_id': self.client_id,
-                'application_id': self.application_id,
-                'request_type': self.request_type,
+        return {'client_id': self.client_id.upper(),
+                'application_id': self.application_id.upper(),
+                'request_type': self.request_type.upper(),
                 'type_version': self.type_version,
                 'request_parameters': self.params,
                 'files': self.files}
