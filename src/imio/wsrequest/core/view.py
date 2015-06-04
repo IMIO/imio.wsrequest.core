@@ -111,7 +111,7 @@ class WSResponseBaseView(WSBaseView):
 
     def execute(self):
         try:
-            self.success, response = self.ws_request.do_request()
+            self.success, self.response = self.ws_request.do_request()
             if self.success is True:
                 self.store_values()
         except RequestException, e:
