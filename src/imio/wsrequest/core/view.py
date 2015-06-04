@@ -112,9 +112,6 @@ class WSResponseBaseView(WSBaseView):
     def execute(self):
         try:
             self.success, response = self.ws_request.do_request()
-            self.url = response.get('url', None)
-            if response.get('external_uid'):
-                self.context.external_uid = response.get('external_uid')
             if self.success is True:
                 self.store_values()
         except RequestException, e:
