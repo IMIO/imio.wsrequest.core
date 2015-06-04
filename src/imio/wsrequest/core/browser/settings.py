@@ -79,11 +79,6 @@ class IWSRequestSettings(Interface):
         required=False,
     )
 
-    ws_config = schema.Dict(
-        title=_(u'remote application config for the webservice'),
-        required=False,
-    )
-
 
 class WSRequestSettingsEditForm(RegistryEditForm):
     schema = IWSRequestSettings
