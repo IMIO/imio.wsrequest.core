@@ -62,6 +62,10 @@ class WSBaseView(BrowserView):
         """Execute the request to the webservice and return the result"""
         raise NotImplementedError
 
+    def store_values(self):
+        """Method to store the returned values"""
+        pass
+
 
 class WSRequestBaseView(WSBaseView):
     """Base class for requests queries"""
@@ -84,6 +88,8 @@ class WSRequestBaseView(WSBaseView):
     def execute(self):
         try:
             self.success, self.id = self.ws_request.do_request()
+            if self.success is True:
+                self.store_values()
         except RequestException, e:
             self.error = e.message
 
@@ -109,5 +115,7 @@ class WSResponseBaseView(WSBaseView):
             self.url = response.get('url', None)
             if response.get('external_uid'):
                 self.context.external_uid = response.get('external_uid')
+            if self.success is True:
+                self.store_values()
         except RequestException, e:
             self.error = e.message
