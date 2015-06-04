@@ -58,8 +58,7 @@ class WSResponseConfigView(WSResponseBaseView):
     }
 
     def store_values(self):
-        values = {'config': self.response.get('config'),
-                  'date': datetime.now()}
+        values = {'last_sync_date': datetime.now()}
         set_annotation(self.context, self.annotation_key, values)
 
 

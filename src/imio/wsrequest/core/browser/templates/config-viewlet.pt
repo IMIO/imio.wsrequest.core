@@ -2,9 +2,8 @@
 
 <div id="ws-config-viewlet"
      tal:define="annotation view/annotation;
-                 last_update view/last_update_date">
+                 last_sync view/last_sync_date">
 
-  <span tal:content="view/annotation"></span>
   <tal:if condition="view/can_sync">
     <a href="#"
        id=""
@@ -20,11 +19,11 @@
 
   <span id=""
         tal:attributes="id string:ws-response-${view/uid}">
-    <tal:if condition="last_update">
-      Last update <span tal:replace="last_update" />
+    <tal:if condition="last_sync">
+      Last update <span tal:replace="last_sync" />
     </tal:if>
 
-    <tal:if condition="not: last_update">
+    <tal:if condition="not: last_sync">
       The config was never synced
     </tal:if>
   </span>
