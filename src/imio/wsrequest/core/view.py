@@ -75,7 +75,7 @@ class WSRequestBaseView(WSBaseView):
     cls = Request
 
     request_keys = (
-        'plone_id',
+        'client_id',
         'application_id',
         'request_type',
         'type_version',
