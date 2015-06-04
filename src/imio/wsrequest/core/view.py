@@ -29,7 +29,7 @@ class WSBaseView(BrowserView):
     def render(self):
         """Return a JSON with the desired values from the webservice result"""
         self.request.response.setHeader('Content-Type', 'application/json')
-        return json.dumps(self._json_values)
+        return json.dumps(self.json_dict)
 
     @property
     def request_args(self):
@@ -37,7 +37,7 @@ class WSBaseView(BrowserView):
         return [getattr(self, k) for k in self.request_keys]
 
     @property
-    def _json_values(self):
+    def json_dict(self):
         """Return a dictionary with the values for JSON render"""
         keys = self._default_json_values.keys() + self.json_extra_values.keys()
         return {k: getattr(self, k) for k in keys}
