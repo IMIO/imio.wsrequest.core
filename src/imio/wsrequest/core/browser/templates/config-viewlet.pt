@@ -1,13 +1,14 @@
 <tal:if condition="view/can_view">
 
 <div id="ws-config-viewlet"
+     class="ws-viewlet"
      tal:define="annotation view/annotation;
                  last_sync view/last_sync_date">
 
   <tal:if condition="view/can_sync">
     <a href="#"
        id=""
-       class="ws-config-request"
+       class="ws-config-request ws-link"
        tal:attributes="request_href view/ws_request_url;
                        response_href view/ws_response_url;
                        request_id view/request_id;
