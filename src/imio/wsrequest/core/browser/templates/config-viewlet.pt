@@ -6,7 +6,7 @@
                  last_sync view/last_sync_date">
 
   <tal:if condition="view/can_sync">
-    <a href="#"
+    <a href=""
        id=""
        class="ws-config-request ws-link"
        tal:attributes="request_href view/ws_request_url;
@@ -32,64 +32,15 @@
 
 <script type="text/javascript">
   jQuery(function($) {
-    var get_response_container, do_request, check_response, link;
+    var link;
     link = $('div#ws-config-viewlet a.ws-config-request');
 
-    get_response_container = function(link) {
-      var uid = link.attr('uid');
-      return link.parent().find('#ws-response-' + uid);
-    }
-
-    do_request = function() {
-      var obj, uid;
-      uid = $(this).attr('uid');
-      obj = get_response_container($(this));
-
-      $.ajax({
-        url: $(this).attr('request_href'),
-        success: function(data) {
-          if(data.error != null || data.success == false) {
-            set_error(obj);
-          } else {
-            obj.html('in progress...');
-            setTimeout(check_response, 1000, obj, data.id, uid);
-          }
-        },
-        error: function(data) {
-          set_error(obj);
-        }
-      });
-      return false;
-    }
-
-    set_error = function(obj) {
-      obj.html('An error occured during the process');
-    }
-
-    check_response = function(obj, id, uid) {
-      $.ajax({
-        url: $('#ws-request-' + uid).attr('response_href') + '?id=' + id,
-        success: function(data) {
-          if(data.success == false && data.error == null) {
-            setTimeout(check_response, 2000, obj, id);
-          } else if(data.success == true) {
-            obj.html('Config synced !');
-          } else {
-            set_error(obj);
-          }
-        },
-        error: function(data) {
-          set_error(obj);
-        }
-      });
-    }
-
-    link.click(do_request);
+    link.click(ws_do_request);
 
     if (link.attr('request_id')) {
-      var obj = get_response_container(link);
+      var obj = ws_get_response_container(link);
       obj.html('in progress...');
-      check_response(obj, link.attr('request_id'), link.attr('uid'));
+      ws_check_response(obj, link.attr('request_id'), link.attr('uid'));
     }
 
   });

@@ -28,4 +28,9 @@
     class=".viewlet.WSConfigViewlet"
     />
 
+  <browser:resourceDirectory
+    name="imio.wsrequest.core.javascripts"
+    directory="javascripts"
+    />
+
 </configure>
